@@ -1,0 +1,119 @@
+/* ==========================================================================
+   Sayfa geçişi: "sıvı perde" sahnesi + ilk ziyaret yükleme ekranı
+   Üç SVG katmanı (turuncu → zeytin → koyu) kavisli bir dalga hâlinde aşağıdan
+   yükselip ekranı kaplar; ortada hedef sayfanın adı harf harf belirir.
+   Yeni sayfada aynı başlık yukarı kayıp çıkar, katmanlar yukarı çekilir.
+   Mantık: js/transition.js
+   ========================================================================== */
+
+.pt {
+    position: fixed; inset: 0;
+    z-index: 140; /* gürültü (150) ve imleç (180) üstte kalsın */
+    pointer-events: none;
+    visibility: hidden;
+    overflow: hidden;
+    color: var(--bone);
+}
+/* JS varsa sayfa kapalı başlar; açılışı transition.js yapar */
+html.js .pt { visibility: visible; }
+/* JS/GSAP çalışmazsa perde 4 sn sonra kendiliğinden kalkar */
+html.js .pt { animation: ptFallback .01s 4s forwards; }
+@keyframes ptFallback { to { visibility: hidden; } }
+.pt.is-busy { pointer-events: auto; cursor: progress; }
+
+.pt-svg {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    display: block;
+}
+.pt-path--accent { fill: var(--orange); }
+.pt-path--mid { fill: var(--olive); }
+.pt-path--base { fill: #151611; }
+.pt-path--fill { fill: var(--olive); }
+
+/* --- İçerik katmanı --- */
+.pt-content {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; justify-content: space-between;
+    padding: clamp(1.25rem, 3vw, 2.5rem);
+    visibility: hidden;
+}
+/* Geçişle gelindiyse başlık zaten yerinde; ilk ziyarette sayaç görünür */
+.pt.is-arrived .pt-content,
+html.first-visit .pt-content,
+.pt.is-live .pt-content { visibility: visible; }
+
+.pt-top, .pt-foot {
+    display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+    font-family: var(--font-mono);
+    font-size: .72rem; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--sage);
+}
+.pt-top span, .pt-foot span { display: block; white-space: nowrap; }
+.pt-foot .pt-of { color: var(--muted); }
+
+.pt-stage { position: relative; }
+
+.pt-word {
+    display: block;
+    overflow: hidden;
+    padding-bottom: .08em;
+    font-family: var(--font-serif); font-style: italic; font-weight: 400;
+    font-size: clamp(1.6rem, 4.2vw, 3.6rem);
+    line-height: 1; letter-spacing: -0.01em;
+    color: var(--orange);
+    margin: 0 0 .1em .08em;
+}
+.pt-word-in { display: inline-block; }
+
+/* Başlık satırı: taşan harfler maskelenir (Türkçe noktalar için iç boşluk) */
+.pt-line {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    font-size: clamp(3.4rem, 19vw, 16rem);
+    padding: .14em 0 .18em;
+    margin: -.14em 0 -.12em;
+}
+.pt-name, .pt-count {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1em;
+    line-height: .92; letter-spacing: -0.055em;
+    white-space: nowrap;
+}
+.pt-name:empty::before { content: "\00a0"; }
+.pt-name .pt-char { display: inline-block; will-change: transform; }
+.pt-count {
+    position: absolute; left: 0; top: .14em;
+    display: none;
+    font-variant-numeric: tabular-nums;
+}
+.pt-count b { font-weight: inherit; }
+.pt-count em { font-size: .42em; color: var(--orange); margin-left: .06em; letter-spacing: 0; vertical-align: .9em; }
+html.first-visit .pt-count { display: block; }
+html.first-visit .pt:not(.is-named) .pt-name,
+html.first-visit .pt:not(.is-named) .pt-word-in { visibility: hidden; }
+
+/* Alt çizgi: yükleme ilerlemesi ve geçiş vurgusu */
+.pt-rule {
+    position: relative; display: block;
+    height: 1px; margin: clamp(1rem, 2.5vw, 1.75rem) 0 .9rem;
+    background: rgba(234, 228, 214, .16);
+}
+.pt-rule i {
+    position: absolute; inset: 0;
+    background: var(--orange);
+    transform: scaleX(0); transform-origin: left;
+}
+.pt.is-arrived .pt-rule i { transform: scaleX(1); }
+
+@media (max-width: 575.98px) {
+    .pt-top, .pt-foot { font-size: .62rem; letter-spacing: .1em; }
+    .pt-top .pt-meta { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html.js .pt { display: none; }
+}

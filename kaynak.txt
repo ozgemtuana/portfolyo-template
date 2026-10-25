@@ -1,0 +1,44 @@
+KAYNAK / SOURCE
+===============
+
+Bu proje, Start Bootstrap "Personal" şablonu üzerine geliştirilmiş boş bir
+portfolyo şablonudur. Kendi sitende kullanırken bu dosyayı koru (şablon
+kaynağının belirtilmesi ve MIT lisans bildiriminin korunması gerekir).
+
+Kullanılan şablon (Template):
+  Start Bootstrap — Personal (çok sayfalı / multi-page)
+  Site:   https://startbootstrap.com/theme/personal
+  GitHub: https://github.com/StartBootstrap/startbootstrap-personal
+  Lisans: MIT (bkz. LICENSE-template.txt)
+
+Şablondan alınan dosyalar:
+  - css/styles.css   (şablonun derlenmiş CSS'i, Bootstrap 5 dahil)
+  - assets/favicon.ico
+  - Sayfa yapısı: index.html, resume.html, projects.html, contact.html
+    (navbar, header, kartlar, özgeçmiş/proje/iletişim düzeni)
+
+Şablon üzerine yapılan değişiklikler:
+  - css/dark.css : koyu tema, tipografi, responsive düzenlemeler
+  - js/i18n.js   : Türkçe / İngilizce dil desteği
+  - js/main.js   : kaydırma animasyonları ve 3D arka plan
+
+Kullanılan kütüphaneler (CDN):
+  - Bootstrap 5.2.3        https://getbootstrap.com
+  - Bootstrap Icons 1.8.1  https://icons.getbootstrap.com
+  - GSAP 3.12.5 + ScrollTrigger  https://gsap.com
+  - Lenis 1.1.13 (yumuşak kaydırma)  https://github.com/darkroomengineering/lenis
+  - Three.js r128 (3D arka plan)     https://threejs.org
+  - Google Fonts: Bricolage Grotesque, Instrument Serif, JetBrains Mono
+
+Admin Paneli (içerik yönetimi):
+  - admin.html     : yönetim paneli (menüden bağlantı yok, /admin.html ile açılır; noindex)
+  - css/admin.css  : panelin koyu tema stilleri
+  - js/admin.js    : panelin mantığı (düzenleme, kaydetme, görsel yükleme, dışa/içe aktarma, şifre)
+  - js/content.js  : sitenin tüm içeriği (profil, TR/EN metinler, projeler, deneyim, eğitim,
+                     yetenekler, diller, istatistikler) — window.SITE_CONTENT
+  - js/i18n.js     : içeriği okur; panelde kaydedilen sürüm (localStorage
+                     "site-content-override") varsa onu kullanır ve listeleri sayfaya basar
+  Akış: Panelde "Kaydet" → değişiklik yalnızca o tarayıcıda görünür.
+        Kalıcı yapmak için "content.js indir" → dosyayı js/content.js yerine koy.
+  Not: Panel şifresi (varsayılan "admin") yalnızca tarayıcı tarafında kontrol edilir,
+       gerçek bir güvenlik sağlamaz (site statik, sunucu yok).

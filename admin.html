@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="tr">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <!-- Arama motorları bu sayfayı listelemesin -->
+        <meta name="robots" content="noindex, nofollow" />
+        <meta name="theme-color" content="#0a0a08" />
+        <title>Yönetim Paneli</title>
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&amp;family=Instrument+Serif:ital@0;1&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
+        <link href="css/admin.css" rel="stylesheet" />
+    </head>
+    <body>
+        <!-- Giriş ekranı -->
+        <section class="login" id="login">
+            <form class="login-card" id="loginForm" autocomplete="off">
+                <div class="eyebrow">Yönetim Paneli</div>
+                <h1 class="login-title">Hoş <em>geldin</em></h1>
+                <p class="muted">Site içeriğini düzenlemek için şifreni gir.</p>
+                <label class="field">
+                    <span class="field-label">Şifre</span>
+                    <input type="password" id="loginPass" autocomplete="current-password" required autofocus />
+                </label>
+                <p class="login-error" id="loginError" hidden>Şifre yanlış.</p>
+                <button class="btn btn-primary btn-block" type="submit"><i class="bi bi-box-arrow-in-right"></i> Giriş yap</button>
+                <p class="hint" id="loginHint" hidden>İlk giriş şifresi: <code>admin</code> — girişten sonra “Ayarlar” sekmesinden değiştir.</p>
+                <p class="note"><i class="bi bi-info-circle"></i> Bu giriş yalnızca tarayıcıda çalışır ve gerçek bir güvenlik sağlamaz. Site statik olduğu için içerik dosyaları herkes tarafından okunabilir.</p>
+                <a class="back-link" href="index.html"><i class="bi bi-arrow-left"></i> Siteye dön</a>
+            </form>
+        </section>
+
+        <!-- Panel -->
+        <div class="app" id="app" hidden>
+            <header class="topbar">
+                <div class="brand">
+                    <span class="brand-name" id="brandName">Panel</span>
+                    <span class="brand-sub">içerik yönetimi</span>
+                </div>
+                <span class="status" id="status" data-state="saved"><i></i><span>Kaydedildi</span></span>
+                <div class="top-actions">
+                    <button class="btn btn-ghost" type="button" id="previewBtn" title="Kaydedip siteyi yeni sekmede açar"><i class="bi bi-box-arrow-up-right"></i><span>Önizle</span></button>
+                    <button class="btn btn-primary" type="button" id="saveBtn" title="Kaydet (Ctrl/Cmd + S)"><i class="bi bi-check2"></i><span>Kaydet</span></button>
+                    <button class="btn btn-ghost btn-icon" type="button" id="logoutBtn" title="Çıkış yap" aria-label="Çıkış yap"><i class="bi bi-box-arrow-right"></i></button>
+                </div>
+            </header>
+
+            <nav class="tabs" id="tabs" aria-label="Bölümler">
+                <button type="button" data-tab="profil"><i class="bi bi-person"></i>Profil</button>
+                <button type="button" data-tab="metinler"><i class="bi bi-translate"></i>Metinler</button>
+                <button type="button" data-tab="projeler"><i class="bi bi-grid-1x2"></i>Projeler</button>
+                <button type="button" data-tab="deneyim"><i class="bi bi-briefcase"></i>Deneyim</button>
+                <button type="button" data-tab="egitim"><i class="bi bi-mortarboard"></i>Eğitim</button>
+                <button type="button" data-tab="yetenekler"><i class="bi bi-tools"></i>Yetenekler</button>
+                <button type="button" data-tab="istatistikler"><i class="bi bi-123"></i>İstatistikler</button>
+                <button type="button" data-tab="aktar"><i class="bi bi-arrow-down-up"></i>Dışa / İçe aktar</button>
+                <button type="button" data-tab="ayarlar"><i class="bi bi-gear"></i>Ayarlar</button>
+            </nav>
+
+            <main class="content" id="content"></main>
+        </div>
+
+        <div class="toast" id="toast" role="status" aria-live="polite"></div>
+        <input type="file" id="importFile" accept=".json,.js,application/json,text/javascript" hidden />
+
+        <script src="js/content.js"></script>
+        <script src="js/admin.js"></script>
+    </body>
+</html>
